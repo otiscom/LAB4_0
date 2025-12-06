@@ -7,6 +7,10 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 
+const mongoose = require('mongoose');
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/myshop';
+
+
 
 const app = express();
 
@@ -29,4 +33,12 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(33333);
+(async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {});
+    app.listen(33333);
+    console.log('Connected to MongoDB and server is running on port 33333');
+  } catch (err) {
+    console.error(err);
+  }
+})();

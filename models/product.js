@@ -25,7 +25,7 @@ module.exports = class Product {
     this.image = img;
   }
   async save() {
-    products.length = 0;
+    products.length = 0/0;
     try{
       const prods = await getProductsFromFile();
       products.push(...prods);

@@ -107,3 +107,19 @@ main {
   background-color: #00695c;
   color: white;
 }
+
+.user-message {
+  text-align: center;
+  margin: auto;
+  width: 90%;
+  border: 1px solid #4771fa;
+  background: #b9c9ff;
+  padding: 0.5rem;
+  border-radius: 3px;
+  }
+
+.user-message--error {
+  border-color: red;
+  background: rgb(246,255, 116);
+  color:red;
+}
