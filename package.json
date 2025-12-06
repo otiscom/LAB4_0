@@ -1,0 +1,21 @@
+{
+  "name": "prog-ap-int-lab4",
+  "version": "1.0.0",
+  "description": "Programowanie Aplikacji Internetowych, Lab-4",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Grzegorz Filo",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
+}
