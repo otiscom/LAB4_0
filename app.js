@@ -10,7 +10,9 @@ const errorController = require('./controllers/error');
 const mongoose = require('mongoose');
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/pb_2025_41K8_lipiec';
 
-
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const csrf = require('tiny-csrf');
 
 const app = express();
 
@@ -27,6 +29,23 @@ app.use(
   ).single("image")
 );
 
+app.use(cookieParser("our-very-unique-and-secret-cookie-parser-string"));
+
+app.use(
+  session({
+    secret: 'our-very-unique-and-secret-session-string',
+    resave: false,
+    saveUninitialized: false,
+    store: store})
+  );
+
+app.use(
+  csrf('this_should_be_32_character_long', ['POST','DELETE', 'PUT', 'PATCH'], ["/logout", /\/product(\/.*)?/i]));
+
+app.use((req, res, next) => {
+  res.locals.myToken = req.csrfToken();
+  next();
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
