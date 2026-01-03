@@ -22,14 +22,21 @@ exports.postAddProduct = async (req, res, next) => {
       activeAddProduct: true
     });
   }
-  const imageUrl = image.path;
-  const product = new Product(title, price, desc, imageUrl);
+  const imageUrl = image.path.replace(/\\/g, '/');
+  try {
+  const product = new Product({title: title, price: price, desc: desc, image: imageUrl});
   await product.save();
   res.redirect("/");
+} catch (err) {
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  return next(error);
+}
 };
 
 exports.getProducts = async (req, res, next) => {
-  const products = await Product.fetchAll();
+  try {
+  const products = await Product.find();
   res.render('shop', {
     prods: products,
     pageTitle: 'Shop',
@@ -37,4 +44,9 @@ exports.getProducts = async (req, res, next) => {
     hasProducts: products.length > 0,
     activeShop: true, productCSS: true
   });
+} catch (err) {
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  return next(error);
+}
 };
