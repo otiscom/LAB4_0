@@ -7,12 +7,20 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const cookieParser = require('cookie-parser');
+const csrf = require('tiny-csrf');
+
 const mongoose = require('mongoose');
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/pb_2025_41K8_lipiec';
 
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const csrf = require('tiny-csrf');
+mongoose.set('strictQuery', false);
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions'
+});
+
 
 const app = express();
 

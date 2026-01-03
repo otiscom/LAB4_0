@@ -26,6 +26,8 @@ exports.postAddProduct = async (req, res, next) => {
   try {
   const product = new Product({title: title, price: price, desc: desc, image: imageUrl});
   await product.save();
+  //const err = await req.session.save();
+  //if (err) throw new Error("Session save error");
   res.redirect("/");
 } catch (err) {
   const error = new Error(err);
